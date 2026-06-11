@@ -6,7 +6,8 @@
   "workspaces": [
     "shared",
     "logger",
-    "config"
+    "config",
+    "event-bus"
   ],
   "scripts": {
     "build": "tsc -b",
