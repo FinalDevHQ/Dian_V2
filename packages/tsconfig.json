@@ -5,6 +5,7 @@
     { "path": "./logger" },
     { "path": "./config" },
     { "path": "./event-bus" },
-    { "path": "./module-runtime" }
+    { "path": "./module-runtime" },
+    { "path": "./plugin-runtime" }
   ]
 }

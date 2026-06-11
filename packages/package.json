@@ -8,7 +8,8 @@
     "logger",
     "config",
     "event-bus",
-    "module-runtime"
+    "module-runtime",
+    "plugin-runtime"
   ],
   "scripts": {
     "build": "tsc -b",

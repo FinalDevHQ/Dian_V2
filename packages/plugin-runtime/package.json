@@ -1,0 +1,35 @@
+{
+  "name": "@myfinal/dian-plugin-runtime",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean",
+    "dev": "tsc -b --watch"
+  },
+  "dependencies": {
+    "@myfinal/dian-shared": "^0.1.0",
+    "@myfinal/dian-logger": "^0.1.0",
+    "@myfinal/dian-config": "^0.1.0",
+    "@myfinal/dian-event-bus": "^0.1.0",
+    "@myfinal/dian-module-runtime": "^0.1.0",
+    "chokidar": "^5.0.0",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0"
+  }
+}
