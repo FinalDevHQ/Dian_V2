@@ -10,7 +10,8 @@
     "event-bus",
     "module-runtime",
     "plugin-runtime",
-    "storage"
+    "storage",
+    "scheduler"
   ],
   "scripts": {
     "build": "tsc -b",
