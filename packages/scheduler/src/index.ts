@@ -8,6 +8,12 @@ export type {
   CronFields,
 } from "./types.js";
 
+export type {
+  SchedulerEventType,
+  SchedulerEvent,
+  SchedulerCallback,
+} from "./scheduler.js";
+
 // Cron 解析
 export { parseCron, matchCron, getNextRunTime } from "./cron.js";
 
