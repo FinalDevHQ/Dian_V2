@@ -6,6 +6,7 @@
     { "path": "./config" },
     { "path": "./event-bus" },
     { "path": "./module-runtime" },
-    { "path": "./plugin-runtime" }
+    { "path": "./plugin-runtime" },
+    { "path": "./storage" }
   ]
 }

@@ -9,7 +9,8 @@
     "config",
     "event-bus",
     "module-runtime",
-    "plugin-runtime"
+    "plugin-runtime",
+    "storage"
   ],
   "scripts": {
     "build": "tsc -b",
