@@ -1,4 +1,4 @@
-# Dian V2 Architecture
+# Architecture
 
 ## Monorepo Structure
 
@@ -6,7 +6,7 @@
 Dian_V2/
 ├── apps/
 │   ├── web/          # Frontend: Vite + React 19 + Tailwind v4 + shadcn/ui
-│   └── server/       # Backend: Node.js bot server (no HTTP framework)
+│   └── server/       # Backend: Node.js bot server
 ├── packages/
 │   ├── shared/           # @myfinal/dian-shared     — Brand types, BotEvent, utilities
 │   ├── logger/           # @myfinal/dian-logger     — Pino-based logging
@@ -17,43 +17,52 @@ Dian_V2/
 │   ├── storage/          # @myfinal/dian-storage    — SQLite via sql.js
 │   └── scheduler/        # @myfinal/dian-scheduler  — Cron/interval/delay
 ├── config/           # Shared config templates
-├── spec/             # Project specifications (this directory)
+├── spec/             # Project specifications
 └── .vscode/          # VSCode workspace settings
 ```
+
+## Dependency Direction
+
+```
+✅ web ──→ shared
+✅ server ──→ packages/*
+✅ packages/* ──→ shared (allowed deps only, see graph below)
+
+❌ shared ──→ web
+❌ shared ──→ server
+❌ apps/web ──→ apps/server
+❌ apps/server ──→ apps/web
+```
+
+Layers must never point upward or sideways — only downward.
 
 ## Dependency Graph
 
 ```
-shared ──────────────────────────────────────────────────────
-  ├── logger ─────────────────── standalone (pino wrapper)
-  ├── event-bus ──────────────── depends on shared
-  ├── config ─────────────────── depends on shared, chokidar, zod
-  ├── module-runtime ─────────── depends on shared, logger, event-bus
-  ├── plugin-runtime ─────────── depends on shared, logger, config, module-runtime
-  ├── storage ────────────────── depends on shared, logger
-  └── scheduler ──────────────── depends on logger
+shared (zero deps)
+  ├── logger ─────────── standalone
+  ├── event-bus ──────── → shared
+  ├── config ─────────── → shared
+  ├── module-runtime ─── → shared, logger, event-bus
+  ├── plugin-runtime ─── → shared, logger, config, module-runtime
+  ├── storage ────────── → shared, logger
+  └── scheduler ──────── → logger
 
-apps/server ──────────────────── depends on all @myfinal/dian-* packages
-apps/web   ──────────────────── independent (Vite + React)
+apps/server ──────────── → all @myfinal/dian-* packages
+apps/web   ──────────── independent
 ```
+
+## Package Rules
+
+1. Every package has a single barrel file `index.ts` that re-exports all public APIs.
+2. A package in `packages/` may only depend on `shared` or other `packages/` packages listed in its dependency graph above.
+3. No cyclic dependencies — enforce with `dpdm` or `madge` in CI.
+4. Adding a new package requires approval — it increases the maintenance surface.
 
 ## Key Design Decisions
 
-1. **Factory Function Pattern**: Every service exports a `createXxx()` factory function that returns a class instance. No `new` outside the factory.
-
-2. **Event-Driven Architecture**: Bot events flow through a typed event bus with middleware chain (onion model). Plugins subscribe via decorator (`@Handler`) or functional handlers.
-
-3. **No HTTP Framework**: The server is an in-process bot orchestrator, not a web server. Communication happens through events, not HTTP routes.
-
-4. **Plugin System**: Two styles — decorator (`@Plugin/@Handler`) and functional. Both are equally supported.
-
-5. **Static Typing**: Brand types (`BotId`, `UserId`, etc.) use nominal typing via `unique symbol` for type safety.
-
-## Module/File Naming
-
-| Pattern | Example |
-|---|---|
-| `packages/<name>/` | `packages/logger/` |
-| Source files inside package | `logger.ts`, `types.ts`, `index.ts` |
-| Multiple related files | `sqlite-log.ts`, `sqlite-message.ts` |
-| Barrel export | Always `index.ts` re-exporting all public APIs |
+1. **Factory Function Pattern**: Every service exports `createXxx()` → class instance.
+2. **Event-Driven**: Bot events flow through typed event bus with middleware chain.
+3. **No HTTP Framework**: Server is an in-process bot orchestrator, not a web server.
+4. **Plugin System**: Decorator (`@Plugin/@Handler`) and functional styles, equally supported.
+5. **Static Typing**: Brand types (`BotId`, `UserId`) via `unique symbol` nominal typing.
