@@ -8,9 +8,10 @@
     "apps/*"
   ],
   "scripts": {
-    "build": "npm run build -w packages",
+    "build": "npm run build -w packages && npm run build -w apps/server",
     "dev": "npm run dev -w packages",
-    "clean": "npm run clean -w packages"
+    "clean": "npm run clean -w packages",
+    "start": "npm run start -w apps/server"
   },
   "devDependencies": {
     "typescript": "^5.6.3"

@@ -1,0 +1,12 @@
+# Dian V2 配置
+logLevel: info
+
+storage: {}
+  # sqlite: data/dian.db
+  # mysql: mysql://user:pass@localhost:3306/dian
+  # redis: redis://localhost:6379
+
+auth: {}
+  # passwordHash: (留空则自动生成)
+  # jwtSecret: (留空则自动生成)
+  # tokenExpiresIn: 86400

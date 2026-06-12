@@ -1,0 +1,25 @@
+{
+  "name": "@dian/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean",
+    "dev": "tsc -b --watch",
+    "start": "node dist/main.js"
+  },
+  "dependencies": {
+    "@myfinal/dian-shared": "^0.1.0",
+    "@myfinal/dian-logger": "^0.1.0",
+    "@myfinal/dian-config": "^0.1.0",
+    "@myfinal/dian-event-bus": "^0.1.0",
+    "@myfinal/dian-module-runtime": "^0.1.0",
+    "@myfinal/dian-plugin-runtime": "^0.1.0",
+    "@myfinal/dian-storage": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0"
+  }
+}

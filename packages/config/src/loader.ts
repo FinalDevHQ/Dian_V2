@@ -71,15 +71,15 @@ function loadYaml<T extends ZodSchema>(filePath: string, schema: T): z.infer<T> 
 const DEFAULT_SETTINGS = `# Dian V2 配置
 logLevel: info
 
-storage:
+storage: {}
   # sqlite: data/dian.db
   # mysql: mysql://user:pass@localhost:3306/dian
   # redis: redis://localhost:6379
 
-auth:
+auth: {}
   # passwordHash: (留空则自动生成)
   # jwtSecret: (留空则自动生成)
-  tokenExpiresIn: 86400
+  # tokenExpiresIn: 86400
 `;
 
 const DEFAULT_BOT = `# 机器人配置
