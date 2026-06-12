@@ -1,0 +1,13 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./shared" },
+    { "path": "./logger" },
+    { "path": "./config" },
+    { "path": "./event-bus" },
+    { "path": "./module-runtime" },
+    { "path": "./plugin-runtime" },
+    { "path": "./storage" },
+    { "path": "./scheduler" }
+  ]
+}

@@ -1,0 +1,21 @@
+# 机器人配置
+# 支持多种平台的多个机器人同时运行
+# platform 和 options 的具体结构由各平台适配器插件定义
+bots: []
+# 示例（同时运行多个不同平台的机器人）:
+# bots:
+#   - botId: qq-bot
+#     enabled: true
+#     platform: onebot
+#     options:
+#       # OneBot 适配器定义的配置
+#   - botId: discord-bot
+#     enabled: true
+#     platform: discord
+#     options:
+#       # Discord 适配器定义的配置
+#   - botId: telegram-bot
+#     enabled: true
+#     platform: telegram
+#     options:
+#       # Telegram 适配器定义的配置
